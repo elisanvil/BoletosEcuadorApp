@@ -99,7 +99,7 @@ func (s *toDoServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.
 	defer c.Close()
 
 	// query Evento by ID
-	rows, err := c.QueryContext(ctx, "SELECT `nombre`, `tipo`, `id_venue`, `fecha`,`hora` FROM evento WHERE `id_evento`=?", req.IdEvento)
+	rows, err := c.QueryContext(ctx, "SELECT `id_evento`,`nombre`, `tipo`, `id_venue`, `fecha`,`hora` FROM evento WHERE `id_evento`=?", req.IdEvento)
 	if err != nil {
 		return nil, status.Error(codes.Unknown, "failed to select from Evento-> "+err.Error())
 	}
@@ -228,7 +228,7 @@ func (s *toDoServiceServer) ReadAll(ctx context.Context, req *v1.ReadAllRequest)
 	defer c.Close()
 
 	// get ToDo list
-	rows, err := c.QueryContext(ctx, "SELECT `nombre`, `tipo`, `id_venue`, `fecha`,`hora` FROM evento")
+	rows, err := c.QueryContext(ctx, "SELECT `id_evento`,`nombre`, `tipo`, `id_venue`, `fecha`,`hora` FROM evento")
 	if err != nil {
 		return nil, status.Error(codes.Unknown, "failed to select from ToDo-> "+err.Error())
 	}
