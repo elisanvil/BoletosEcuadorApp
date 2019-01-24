@@ -1,0 +1,48 @@
+<!--index.html-->
+
+{{ template "header.html" .}}
+
+    <center>
+      <h1>Consulta nuestros eventos disponibles</h1>
+
+      <br><br>
+      <form method="get" action="">
+      <input type="text" name="q" size="31" maxlength="255" value="" />
+      <input type="submit" name="" value="Consultar" />
+      </form>
+      <br><br><br>
+      
+      <div class="container">
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Tipo</th>
+                  <th>Venue</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>            
+                </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <form action="/asiento">
+        <input type="submit" value="Ver asiento" />
+      </form>
+      
+    </center>
+
+    <br><br>
+{{ template "footer.html" .}}
