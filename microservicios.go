@@ -17,11 +17,11 @@ func main() {
 	defer db.Close()
 
 	// Prepare statement for inserting data
-	stmtIns, err := db.Prepare("INSERT INTO evento (id, name, hora, id_venue, fecha) VALUES(null, ?, NOW(), ?, CURDATE())") // ? = placeholder
+	/*stmtIns, err := db.Prepare("INSERT INTO evento (id, name, hora, id_venue, fecha) VALUES(null, ?, NOW(), ?, CURDATE())") // ? = placeholder
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
 	}
-	defer stmtIns.Close() // Close the statement when we leave main() / the program terminates
+	defer stmtIns.Close() // Close the statement when we leave main() / the program terminates*/
 
 	// Prepare statement for reading data
 	//Usuario pueden ver eventos disponibles
@@ -37,14 +37,13 @@ func main() {
 	}
 	defer stmtOut2.Close()
 
-	//names := make([]string, 0)
-	names := [4]string{"Funkafest", "Shakira", "Chayanne", "Barcelona vs. Macara"}
+	/*names := [4]string{"Funkafest", "Shakira", "Chayanne", "Barcelona vs. Macara"}
 	for index, element := range names{
 		_, err = stmtIns.Exec(element, index)
 		if err != nil {
 			panic(err.Error())
 		}
-	}
+	}*/
 
 	var id int
 	var name string
@@ -78,4 +77,27 @@ func main() {
 		panic(err.Error())
 	}
 	fmt.Printf("ids obtenidos %d", ids)
+
+	//creacion de venues
+	stmtIns2, err := db.Prepare("INSERT INTO venue (id_venue, name, ubicacion, tipo, capacidad, disponibilidad) VALUES (null, ?, ?, ?, ?, ?)")
+	if err != nil {
+		panic(err.Error())
+	}
+	defer stmtIns2.Close()
+
+	venue_names := [3]string{"Cto. convenciones", "Casa de la Cultura", "Coliseo Voltaire"}
+	venue_ubicacion := [3]string{"Guayaquil", "Quito", "Guayaquil"}
+	venue_tipo := [3]string{"Teatro", "Agora", "Coliseo"}
+	venue_capacidad := [3]int{10000, 55000, 1000000}
+	//fmt.Printf(venue_names[0])
+	//fmt.Printf(venue_ubicacion[1])
+	//fmt.Printf(venue_tipo[2])
+	//fmt.Printf(venue_capacidad[1])
+	for index, element := range venue_names{
+		_, err = stmtIns2.Exec(element, venue_ubicacion[index], venue_tipo[index], venue_capacidad[index], 1)
+		if err != nil {
+			panic(err.Error())
+		}
+	}
+
 }
